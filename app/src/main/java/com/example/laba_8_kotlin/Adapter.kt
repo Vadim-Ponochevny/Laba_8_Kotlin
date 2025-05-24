@@ -21,14 +21,12 @@ class Adapter(
         val icon: ImageView = itemView.findViewById(R.id.temperature_icon)
         val temp: TextView = itemView.findViewById(R.id.temperature)
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         Log.d("AdapterDebug", "onCreateViewHolder called")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.rview_item, parent, false)
         return ViewHolder(view)
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val weatherItem = getItem(position)
         Log.d("AdapterDebug", "onBindViewHolder called for position $position: $weatherItem")
@@ -47,10 +45,10 @@ class Adapter(
 
 class WeatherDiffCallback : DiffUtil.ItemCallback<WeatherItem>() {
     override fun areItemsTheSame(oldItem: WeatherItem, newItem: WeatherItem): Boolean {
-        return oldItem.dt_txt == newItem.dt_txt
+        return oldItem == newItem
     }
 
     override fun areContentsTheSame(oldItem: WeatherItem, newItem: WeatherItem): Boolean {
-        return oldItem == newItem
+        return oldItem.dt_txt == newItem.dt_txt
     }
 }

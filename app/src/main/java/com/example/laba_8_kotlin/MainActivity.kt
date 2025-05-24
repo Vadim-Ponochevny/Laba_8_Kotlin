@@ -14,14 +14,11 @@ import com.example.laba_8_kotlin.data.ForecastResponse
 import retrofit2.Callback
 import retrofit2.Call
 import retrofit2.Response
-const val API_KEY = "f4d1ed2cc8d2452ec00762c888b85979"
+const val API_KEY = "20858ea2833fa2cd74c3978b79c8f71e"
 
 class MainActivity : AppCompatActivity() {
-    lateinit var mService: RetrofitServices
-    lateinit var layoutManager: LinearLayoutManager
-    lateinit var adapter: Adapter
-
-
+    private lateinit var mService: RetrofitServices
+    private var adapter = Adapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,10 +34,8 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.rView)
         mService = Common.retrofitService
         recyclerView.setHasFixedSize(true)
-        layoutManager = LinearLayoutManager(this)
-        recyclerView.layoutManager = layoutManager
+        recyclerView.layoutManager = LinearLayoutManager(this)
 
-        adapter = Adapter()
         recyclerView.adapter = adapter
 
         getAllWeatherList()
@@ -56,8 +51,11 @@ class MainActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<ForecastResponse>, response: Response<ForecastResponse>) {
                 if (response.isSuccessful && response.body() != null) {
-                    val list = response.body()!!.list
-                    adapter.submitList(list)
+                    response.body()?.let { body ->
+                        val list = body.list
+                        adapter.submitList(list)
+                    }
+
                     Log.d("WEATHER_API", "Response: ${response.body()?.list}")
                 }
             }
