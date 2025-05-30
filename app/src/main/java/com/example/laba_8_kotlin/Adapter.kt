@@ -21,15 +21,21 @@ class Adapter(
         val icon: ImageView = itemView.findViewById(R.id.temperature_icon)
         val temp: TextView = itemView.findViewById(R.id.temperature)
     }
+
+
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         Log.d("AdapterDebug", "onCreateViewHolder called")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.rview_item, parent, false)
         return ViewHolder(view)
+
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val weatherItem = getItem(position)
         Log.d("AdapterDebug", "onBindViewHolder called for position $position: $weatherItem")
+
         holder.dt.text = weatherItem.dt_txt
         holder.temp.text = weatherItem.main.temp.toString()
 
