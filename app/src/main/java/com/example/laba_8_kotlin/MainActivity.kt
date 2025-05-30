@@ -42,7 +42,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getAllWeatherList() {
-        mService.getForecast("Shklov", API_KEY, "metric").enqueue(object : Callback<ForecastResponse> {
+        mService.getForecast("Norilsk", API_KEY, "metric").enqueue(object : Callback<ForecastResponse> {
             override fun onFailure(call: Call<ForecastResponse>, t: Throwable) {
                 Log.e("WEATHER_API", "Error: ${t.message}")
 
